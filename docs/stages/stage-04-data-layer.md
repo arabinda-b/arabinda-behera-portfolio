@@ -1,6 +1,6 @@
 # Stage 4 — TypeScript Data Layer
 
-**Status:** In Progress  
+**Status:** Complete  
 **Date:** 2026-05-29
 
 ## What You'll Learn
@@ -366,13 +366,15 @@ Also try this in your IDE: in `data.ts`, deliberately misspell `company` as `com
 
 ## Key Concepts Learned
 
-| Concept | Explanation |
-|---|---|
-| TypeScript interface | Defines the shape of an object — like a Java POJO/record. The compiler enforces it. |
-| `export const` typed array | `const EXPERIENCES: Experience[] = [...]` — TypeScript checks every item matches the interface |
-| Single source of truth | All data in one file. Components only read, never define content. |
-| `import type` | Imports only the type definition, not runtime code — slightly more efficient |
-| Compile-time vs runtime errors | TypeScript catches shape mismatches during `npm run build`, not in the browser |
+
+| Concept                        | Explanation                                                                                    |
+| ------------------------------ | ---------------------------------------------------------------------------------------------- |
+| TypeScript interface           | Defines the shape of an object — like a Java POJO/record. The compiler enforces it.            |
+| `export const` typed array     | `const EXPERIENCES: Experience[] = [...]` — TypeScript checks every item matches the interface |
+| Single source of truth         | All data in one file. Components only read, never define content.                              |
+| `import type`                  | Imports only the type definition, not runtime code — slightly more efficient                   |
+| Compile-time vs runtime errors | TypeScript catches shape mismatches during `npm run build`, not in the browser                 |
+
 
 ---
 
