@@ -1,6 +1,6 @@
 # Stage 9 — Blog with MDX
 
-**Status:** In Progress  
+**Status:** Complete  
 **Date:** 2026-05-29
 
 ## What You'll Learn
@@ -34,27 +34,17 @@ npm install next-mdx-remote gray-matter @tailwindcss/typography
 
 ---
 
-## Step 2 — Enable the typography plugin in `tailwind.config.ts`
+## Step 2 — Enable the typography plugin in `globals.css`
 
-Open `tailwind.config.ts` and update the `plugins` array:
+> **Note:** This project uses **Tailwind CSS v4**, which has no `tailwind.config.ts` file. Configuration and plugins are registered directly in CSS using `@plugin`. The `@tailwindcss/typography` package is already installed.
 
-```ts
-import type { Config } from "tailwindcss";
+Open `src/app/globals.css` and add one line after the existing imports at the top:
 
-const config: Config = {
-  darkMode: "class",
-  content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [require("@tailwindcss/typography")],
-};
-
-export default config;
+```css
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@plugin "@tailwindcss/typography";
 ```
 
 The `prose` class (from this plugin) automatically styles headings, paragraphs, lists, code blocks, and links inside an article — without writing a single CSS rule.
@@ -196,14 +186,15 @@ export function generateStaticParams() {
   return getAllPosts().map((post) => ({ slug: post.slug }));
 }
 
-export default function BlogPost({
+export default async function BlogPost({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
+  const { slug } = await params;
   let source: string;
   try {
-    source = getPostContent(params.slug);
+    source = getPostContent(slug);
   } catch {
     notFound();
   }

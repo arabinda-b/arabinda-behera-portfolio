@@ -1,0 +1,40 @@
+---
+title: "From CERN to Oracle: What Particle Physics Taught Me About Software Engineering"
+date: "2026-05-29"
+description: "How designing High-Level Triggers for the LHC prepared me for building distributed systems at enterprise scale."
+tags: ["career", "physics", "software-engineering", "AI"]
+---
+
+When I tell people I spent years analyzing particle collisions at CERN before joining Oracle as a software engineer, the reaction is usually some version of "that's a weird pivot." But the more I've worked in production engineering, the more I see the same patterns everywhere — just at different scales.
+
+## The Scale Problem Is the Same
+
+At CERN's ATLAS experiment, the LHC produces about 40 million proton-proton collisions per second. The detector generates roughly 60 terabytes of raw data every second. You cannot store or process all of it. The **High-Level Trigger** system — which I worked on — had microseconds to decide which collisions were "interesting" enough to save.
+
+That's a real-time distributed systems problem with brutal latency constraints.
+
+At Oracle, I work on Release Engineering pipelines that orchestrate thousands of build and deployment jobs across enterprise software. The constraint is different (not microseconds), but the core challenge is the same: how do you process massive throughput reliably, with intelligent filtering, and without losing the events that actually matter?
+
+The mental models transfer almost exactly.
+
+## Statistical Rigor Belongs in Production
+
+Physics taught me to be obsessive about uncertainty. Every measurement comes with error bars. Every claim needs to be reproducible. Every result needs to survive scrutiny from 3,000 collaborators who are actively trying to find a flaw in your analysis.
+
+Software engineering often lacks this culture. Systems get built, they "work," and assumptions get baked in. When something breaks in production, the debugging is often less rigorous than it could be.
+
+The habit of asking "what are the failure modes?" and "how would I know if this was wrong?" — that's physics thinking, and it makes me a better engineer.
+
+## Deep Learning Was Already in My Toolkit
+
+One of my PhD projects involved training Variational Autoencoders (VAEs) and Generative Adversarial Networks (GANs) to simulate photon showers in the ATLAS electromagnetic calorimeter — replacing an expensive simulation (GEANT4) with a neural network that ran 100x faster.
+
+This was 2019–2020. The techniques I learned then — generative modeling, distribution matching, evaluating simulation fidelity — are exactly the techniques powering enterprise AI today. When I built a RAG system at Oracle using vector embeddings and similarity search, it felt like a direct extension of the same thinking.
+
+The tools changed. The ideas didn't.
+
+## What I'd Tell My Past Self
+
+The transition from physics to software engineering is smaller than it looks. The skills that made you a good physicist — handling ambiguity, debugging at scale, building systems that actually work, communicating technical results clearly — are the same skills that make a good software engineer.
+
+The syntax is different. The domain is different. The core discipline is identical.
