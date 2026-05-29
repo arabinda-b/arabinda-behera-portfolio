@@ -1,6 +1,6 @@
 # Stage 8 — Framer Motion Animations
 
-**Status:** In Progress  
+**Status:** Complete  
 **Date:** 2026-05-29
 
 ## What You'll Learn
@@ -108,11 +108,13 @@ export function FadeInItem({
 
 **The three components:**
 
-| Component | Use case |
-|---|---|
-| `FadeIn` | Animates a single element into view. Optional `delay` prop for sequencing. |
-| `FadeInStagger` | Parent wrapper — triggers children to animate in one after another. |
-| `FadeInItem` | Child of `FadeInStagger` — inherits the stagger timing via `variants`. |
+
+| Component       | Use case                                                                   |
+| --------------- | -------------------------------------------------------------------------- |
+| `FadeIn`        | Animates a single element into view. Optional `delay` prop for sequencing. |
+| `FadeInStagger` | Parent wrapper — triggers children to animate in one after another.        |
+| `FadeInItem`    | Child of `FadeInStagger` — inherits the stagger timing via `variants`.     |
+
 
 **How `useInView` works:** Framer Motion watches the element using the browser's `IntersectionObserver`. When the element enters the viewport (minus the 80px margin), `isInView` becomes `true` and the animation runs. `once: true` means it only animates once, not every time you scroll past.
 
@@ -270,7 +272,7 @@ export default function Experience() {
         {EXPERIENCES.map((exp, index) => (
           <FadeIn key={`${exp.company}-${exp.period}`} delay={index * 0.1}>
             <div className="relative">
-              <div className="absolute -left-[31px] top-1.5 w-3 h-3 rounded-full bg-primary border-2 border-background" />
+              <div className="absolute left-[-31px] top-1.5 w-3 h-3 rounded-full bg-primary border-2 border-background" />
               <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-1 mb-3">
                 <div>
                   <h3 className="font-semibold text-lg leading-tight">{exp.role}</h3>
@@ -392,6 +394,7 @@ npm run dev
 ```
 
 Open `localhost:3000` and scroll slowly from top to bottom. You should see:
+
 - Hero elements fade in sequentially on load (name → tagline → buttons)
 - Each section heading fades up as you scroll to it
 - Experience entries appear one after another as you scroll
@@ -401,14 +404,16 @@ Open `localhost:3000` and scroll slowly from top to bottom. You should see:
 
 ## Key Concepts Learned
 
-| Concept | Explanation |
-|---|---|
-| "Push client boundary down" | Keep sections as Server Components; only the thin animation wrapper is client-side |
-| `useInView` | Uses `IntersectionObserver` under the hood — fires when element enters viewport |
-| `once: true` | Animation runs only the first time the element enters view, not on every scroll |
-| `variants` | Named animation states (`hidden`/`visible`) passed down through the React tree — how stagger works |
-| `staggerChildren` | Parent variant sets a delay between each child's animation |
-| `delay` prop | Manually sequences sibling elements (used in Hero, Experience) |
+
+| Concept                     | Explanation                                                                                        |
+| --------------------------- | -------------------------------------------------------------------------------------------------- |
+| "Push client boundary down" | Keep sections as Server Components; only the thin animation wrapper is client-side                 |
+| `useInView`                 | Uses `IntersectionObserver` under the hood — fires when element enters viewport                    |
+| `once: true`                | Animation runs only the first time the element enters view, not on every scroll                    |
+| `variants`                  | Named animation states (`hidden`/`visible`) passed down through the React tree — how stagger works |
+| `staggerChildren`           | Parent variant sets a delay between each child's animation                                         |
+| `delay` prop                | Manually sequences sibling elements (used in Hero, Experience)                                     |
+
 
 ---
 
