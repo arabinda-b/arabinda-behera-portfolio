@@ -1,6 +1,6 @@
 # Stage 6 — Navbar and Footer Layout
 
-**Status:** In Progress  
+**Status:** Complete  
 **Date:** 2026-05-29
 
 ## What You'll Learn
