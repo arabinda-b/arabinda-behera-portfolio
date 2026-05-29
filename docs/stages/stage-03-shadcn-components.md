@@ -1,6 +1,6 @@
 # Stage 3 — Install shadcn/ui and Add First Components
 
-**Status:** In Progress  
+**Status:** Complete  
 **Date:** 2026-05-29
 
 ## What You'll Learn
@@ -25,14 +25,19 @@ Run this in your terminal:
 npx shadcn@latest init
 ```
 
-When prompted:
-- **Which style?** → Default
-- **Which color?** → Slate
-- **Use CSS variables?** → Yes
+The CLI asks several questions. Here is what you will actually see and what to choose:
+
+| Prompt | Choice | Why |
+|---|---|---|
+| **Component library** | **Radix UI** | Original and most documented foundation. "Base" is experimental — all community examples use Radix. |
+| **Color preset** | **Luma** | Clean neutral palette. Options are Nova, Vega, Maia, Lyra, Mira, Luma, Sera, Rhea, Custom — Luma is the most neutral and works well for a professional dark portfolio. Presets only set initial CSS variables; you can change colors in `globals.css` at any time. |
+| **Style** | Default | |
+| **CSS variables** | Yes | Enables theming via CSS custom properties |
 
 This creates/updates:
+
 - `src/lib/utils.ts` — adds a `cn()` helper (merges Tailwind class names safely)
-- `components.json` — shadcn/ui config file
+- `components.json` — shadcn/ui config file (records your choices for future `add` commands)
 - Updates `globals.css` with CSS variable color tokens (e.g., `--background`, `--foreground`, `--primary`)
 
 ---
@@ -55,6 +60,7 @@ src/components/ui/
 ```
 
 **Open `src/components/ui/button.tsx`** — read through it. Notice:
+
 - It uses `cva()` (class variance authority) to define variants like `default`, `outline`, `ghost`
 - The `cn()` utility merges class names without conflicts
 - It's just a `<button>` element with styled variants — nothing proprietary
@@ -102,6 +108,7 @@ export default function Home() {
 ## Step 4 — Explore Variants
 
 The `variant` prop changes the visual style without writing any CSS. Try these on the Button:
+
 - `variant="default"` — filled primary color
 - `variant="outline"` — border only
 - `variant="ghost"` — invisible until hover
@@ -135,13 +142,15 @@ Tailwind has a conflict problem: if you write `className="p-4 p-8"`, both classe
 
 ## Key Concepts Learned
 
-| Concept | Explanation |
-|---|---|
-| shadcn/ui "copy into project" model | You own the component code — read it, modify it |
-| Component variants | Style differences passed as props, not new CSS classes |
-| `cn()` utility | Safely merges Tailwind classes, resolves conflicts |
-| `@/` import alias | `@/components/ui/button` = `src/components/ui/button.tsx` |
-| `components.json` | shadcn/ui registry config — tells the CLI where to put components |
+
+| Concept                             | Explanation                                                       |
+| ----------------------------------- | ----------------------------------------------------------------- |
+| shadcn/ui "copy into project" model | You own the component code — read it, modify it                   |
+| Component variants                  | Style differences passed as props, not new CSS classes            |
+| `cn()` utility                      | Safely merges Tailwind classes, resolves conflicts                |
+| `@/` import alias                   | `@/components/ui/button` = `src/components/ui/button.tsx`         |
+| `components.json`                   | shadcn/ui registry config — tells the CLI where to put components |
+
 
 ---
 
