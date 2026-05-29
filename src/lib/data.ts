@@ -15,7 +15,7 @@ export const LINKEDIN = "https://www.linkedin.com/in/arabinda-behera";
 export const GOOGLE_SCHOLAR = "https://scholar.google.com/citations?hl=en&user=o-wsejEAAAAJ";
 export const ORCID = "https://orcid.org/0000-0002-7739-295X";
 export const INSPIRE_HEP = "https://inspirehep.net/authors/1403410";
-export const GITHUB = "https://github.com/arabinda-behera";
+export const GITHUB = "https://github.com/arabinda-b/my-portfolio";
 
 export const BIO = `I operate at the rare intersection of fundamental scientific research and large-scale production engineering. With a Ph.D. from Stony Brook University and research conducted at CERN (ATLAS Collaboration) and Brookhaven National Laboratory (STAR Collaboration), I bring rigorous scientific thinking to every engineering problem.
 
