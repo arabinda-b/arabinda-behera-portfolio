@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { NAME } from "@/lib/data";
+import { ThemeToggle } from "../ui/theme-toggle";
 
 const NAV_LINKS = [
   { label: "About", href: "#about" },
@@ -50,6 +51,9 @@ export default function Navbar() {
             </li>
           ))}
         </ul>
+        <div className="flex items-center gap-3">
+          <ThemeToggle />
+        </div>
       </nav>
     </header>
   );
