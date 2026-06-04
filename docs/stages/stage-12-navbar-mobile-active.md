@@ -1,3 +1,16 @@
+# Stage 12 — Navbar: Mobile Menu + Active Section Highlight
+
+## Overview
+
+- **Active section tracking** — nav link glows cyan with animated underline as you scroll into that section
+- **Mobile hamburger menu** — slide-down drawer for small screens, closes on link click
+- **Publications** added to nav links
+
+---
+
+## Step 1 — Replace `src/components/layout/Navbar.tsx`
+
+```tsx
 "use client";
 
 import { useEffect, useState } from "react";
@@ -8,25 +21,25 @@ import { ThemeToggle } from "../ui/theme-toggle";
 import { Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
-  { label: "About", href: "/#about" },
-  { label: "Experience", href: "/#experience" },
-  { label: "Projects", href: "/#projects" },
-  { label: "Skills", href: "/#skills" },
+  { label: "About",        href: "/#about" },
+  { label: "Experience",   href: "/#experience" },
+  { label: "Projects",     href: "/#projects" },
+  { label: "Skills",       href: "/#skills" },
   { label: "Publications", href: "/#publications" },
-  { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Blog",         href: "/blog" },
+  { label: "Contact",      href: "/#contact" },
 ];
 
 // Use absolute hrefs (/#section) so links work from any route (e.g. /blog).
 // Relative #section links resolve to /blog#section when on the blog page.
-const SECTION_IDS = NAV_LINKS.filter((l) => l.href.startsWith("/#")).map((l) =>
-  l.href.replace("/#", ""),
-);
+const SECTION_IDS = NAV_LINKS
+  .filter((l) => l.href.startsWith("/#"))
+  .map((l) => l.href.replace("/#", ""));
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [activeId, setActiveId] = useState("");
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled]  = useState(false);
+  const [activeId, setActiveId]  = useState("");
+  const [menuOpen, setMenuOpen]  = useState(false);
 
   const pathname = usePathname();
 
@@ -53,7 +66,7 @@ export default function Navbar() {
         ([entry]) => {
           if (entry.isIntersecting) setActiveId(id);
         },
-        { rootMargin: "-40% 0px -55% 0px", threshold: 0 },
+        { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
       );
 
       observer.observe(el);
@@ -86,8 +99,9 @@ export default function Navbar() {
         <ul className="hidden md:flex items-center gap-6">
           {NAV_LINKS.map((link) => {
             const id = link.href.replace("/#", "");
-            const isActive =
-              pathname === "/blog" ? link.href === "/blog" : activeId === id;
+            const isActive = pathname === "/blog"
+              ? link.href === "/blog"
+              : activeId === id;
             return (
               <li key={link.href}>
                 <Link
@@ -153,3 +167,40 @@ export default function Navbar() {
     </header>
   );
 }
+```
+
+---
+
+## Step 2 — Verify section IDs in page components
+
+Each section component must have an `id` matching the nav links. Check that these are present:
+
+| Component | Required `id` |
+|---|---|
+| `Hero.tsx` | `id="hero"` |
+| `About.tsx` | `id="about"` |
+| `Experience.tsx` | `id="experience"` |
+| `Projects.tsx` | `id="projects"` |
+| `Skills.tsx` | `id="skills"` |
+| `Publications.tsx` | `id="publications"` |
+| `Contact.tsx` | `id="contact"` |
+
+---
+
+## How it works
+
+| Feature | Mechanism |
+|---|---|
+| Active section | `IntersectionObserver` on each `#section` — fires when element occupies the middle band of the viewport (`rootMargin: "-40% 0px -55% 0px"`) |
+| Blog active state | `usePathname()` detects `/blog` route — highlights "Blog" link and clears `activeId` so no section link stays lit |
+| Animated underline | `w-0 → w-full` width transition on an absolutely positioned `<span>`; always full-width when active |
+| Mobile menu | `menuOpen` boolean toggles a drawer `div` below the navbar; `closeMenu` called on link click |
+| Hamburger icon | Swaps `Menu` ↔ `X` from lucide-react (already installed via shadcn) |
+
+---
+
+## Files Changed
+
+| File | Action |
+|---|---|
+| `src/components/layout/Navbar.tsx` | Full replacement — active states, mobile drawer, Publications link |
