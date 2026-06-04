@@ -8,24 +8,16 @@ import { ThemeToggle } from "../ui/theme-toggle";
 import { Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
-  { label: "About", href: "/#about" },
-  { label: "Experience", href: "/#experience" },
-  { label: "Projects", href: "/#projects" },
-  { label: "Skills", href: "/#skills" },
-  { label: "Publications", href: "/#publications" },
+  { label: "About", href: "/about" },
+  { label: "Experience", href: "/experience" },
+  { label: "Projects", href: "/projects" },
+  { label: "Publications", href: "/publications" },
   { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Contact", href: "/contact" },
 ];
-
-// Use absolute hrefs (/#section) so links work from any route (e.g. /blog).
-// Relative #section links resolve to /blog#section when on the blog page.
-const SECTION_IDS = NAV_LINKS.filter((l) => l.href.startsWith("/#")).map((l) =>
-  l.href.replace("/#", ""),
-);
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [activeId, setActiveId] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
 
   const pathname = usePathname();
@@ -34,33 +26,6 @@ export default function Navbar() {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  // Reset activeId when navigating away from home (e.g. to /blog)
-  useEffect(() => {
-    if (pathname !== "/") setActiveId("");
-  }, [pathname]);
-
-  // IntersectionObserver — track which section is in view
-  useEffect(() => {
-    const observers: IntersectionObserver[] = [];
-
-    SECTION_IDS.forEach((id) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) setActiveId(id);
-        },
-        { rootMargin: "-40% 0px -55% 0px", threshold: 0 },
-      );
-
-      observer.observe(el);
-      observers.push(observer);
-    });
-
-    return () => observers.forEach((o) => o.disconnect());
   }, []);
 
   const closeMenu = () => setMenuOpen(false);
@@ -85,9 +50,8 @@ export default function Navbar() {
         {/* Desktop links */}
         <ul className="hidden md:flex items-center gap-6">
           {NAV_LINKS.map((link) => {
-            const id = link.href.replace("/#", "");
             const isActive =
-              pathname === "/blog" ? link.href === "/blog" : activeId === id;
+              pathname === link.href || pathname.startsWith(link.href + "/");
             return (
               <li key={link.href}>
                 <Link
@@ -129,8 +93,8 @@ export default function Navbar() {
         <div className="md:hidden bg-background/95 backdrop-blur-md border-b border-border">
           <ul className="max-w-5xl mx-auto px-6 py-4 flex flex-col gap-4">
             {NAV_LINKS.map((link) => {
-              const id = link.href.replace("/#", "");
-              const isActive = activeId === id;
+              const isActive =
+                pathname === link.href || pathname.startsWith(link.href + "/");
               return (
                 <li key={link.href}>
                   <Link

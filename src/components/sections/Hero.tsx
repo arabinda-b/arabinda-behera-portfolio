@@ -27,7 +27,7 @@ export default function Hero() {
       <FadeIn delay={0.4}>
         <div className="flex flex-wrap gap-4 justify-center">
           <Button size="lg" asChild>
-            <Link href="#projects">View Projects</Link>
+            <Link href="/projects">View Projects</Link>
           </Button>
           <Button size="lg" variant="outline" asChild>
             <a href="/resume.pdf" download>
